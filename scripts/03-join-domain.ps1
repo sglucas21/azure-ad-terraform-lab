@@ -41,6 +41,14 @@ Resolve-DnsName "_ldap._tcp.dc._msdcs.$DomainName" -Type SRV -ErrorAction Stop
 Test-NetConnection -ComputerName "ad-dc-01.lab.local" -Port 389
 Test-NetConnection -ComputerName "ad-dc-01.lab.local" -Port 445
 
+$CurrentDomain = (Get-CimInstance Win32_ComputerSystem).Domain
+
+if ($CurrentDomain -ieq $DomainName) {
+    Write-Output "Computer is already joined to $DomainName. Skipping domain join."
+    exit 0
+}
+
+
 Add-Computer `
     -DomainName $DomainName `
     -Credential $Credential `
