@@ -1,0 +1,4 @@
+my_public_ip          = "YOUR.IP.ADDRESS/32"
+local_admin_username = "labadmin"
+local_admin_password = "CHANGE_ME"
+dsrm_password        = "CHANGE_ME"
