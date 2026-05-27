@@ -25,8 +25,8 @@ for ($i = 1; $i -le $MaxAttempts; $i++) {
         break
     }
     catch {
-        Write-Output "Attempt $i of $MaxAttempts: Domain not ready yet. Waiting $DelaySeconds seconds..."
-        Start-Sleep -Seconds $DelaySeconds
+      Write-Output "Attempt $($i) of $($MaxAttempts): Domain not ready yet. Waiting $($DelaySeconds) seconds..."
+    Start-Sleep -Seconds $DelaySeconds
     }
 
     if ($i -eq $MaxAttempts) {
