@@ -6,7 +6,7 @@ $AdminUsername = "ITAdmin"
 $AdminPassword = ConvertTo-SecureString "Password1234!" -AsPlainText -Force
 
 $Credential = New-Object System.Management.Automation.PSCredential(
-    "$NetbiosName\$AdminUsername",
+    "$AdminUsername@$DomainName",
     $AdminPassword
 )
 
@@ -33,6 +33,13 @@ for ($i = 1; $i -le $MaxAttempts; $i++) {
         throw "Domain DNS/SRV records were not ready after waiting."
     }
 }
+
+Write-Output "Testing secure channel prerequisites..."
+
+Resolve-DnsName $DomainName -ErrorAction Stop
+Resolve-DnsName "_ldap._tcp.dc._msdcs.$DomainName" -Type SRV -ErrorAction Stop
+Test-NetConnection -ComputerName "ad-dc-01.lab.local" -Port 389
+Test-NetConnection -ComputerName "ad-dc-01.lab.local" -Port 445
 
 Add-Computer `
     -DomainName $DomainName `
