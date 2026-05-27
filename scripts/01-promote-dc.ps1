@@ -3,13 +3,13 @@ $ErrorActionPreference = "Stop"
 $DomainName = "lab.local"
 $NetbiosName = "LAB"
 $DSRMPasswordPlain = "UseAnotherStrongPassword@2026!"
-$PostConfigScriptB64 = "${post_config_script_b64}"
+
 
 New-Item -Path "C:\ADLab" -ItemType Directory -Force | Out-Null
 
-[System.Text.Encoding]::UTF8.GetString(
-    [System.Convert]::FromBase64String($PostConfigScriptB64)
-) | Out-File -FilePath "C:\ADLab\02-post-reboot-ad-config.ps1" -Encoding UTF8 -Force
+Invoke-WebRequest `
+    -Uri "https://raw.githubusercontent.com/sglucas21/azure-ad-terraform-lab/main/scripts/02-post-reboot-ad-config.ps1" `
+    -OutFile "C:\ADLab\02-post-reboot-ad-config.ps1" 
 
 $stage2 = @"
 `$ErrorActionPreference = "Stop"

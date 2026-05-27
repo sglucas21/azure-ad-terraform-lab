@@ -5,7 +5,7 @@ Start-Sleep -Seconds 180
 Import-Module ActiveDirectory
 Import-Module GroupPolicy
 
-$DomainName = "${domain_name}"
+$DomainName = "lab.local"
 $BaseDN = "DC=lab,DC=local"
 
 for ($i = 1; $i -le 30; $i++) {
