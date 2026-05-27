@@ -44,6 +44,5 @@ Test-NetConnection -ComputerName "ad-dc-01.lab.local" -Port 445
 Add-Computer `
     -DomainName $DomainName `
     -Credential $Credential `
-    -OUPath "OU=Computers,DC=lab,DC=local" `
     -Restart `
     -Force
