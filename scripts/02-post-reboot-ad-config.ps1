@@ -18,11 +18,22 @@ for ($i = 1; $i -le 30; $i++) {
     }
 }
 
-$OUs = @("IT", "Finance", "HR", "Sales", "Computers")
+$OUs = @("IT", "Finance", "HR", "Sales", "Workstations")
 
 foreach ($OU in $OUs) {
-    if (-not (Get-ADOrganizationalUnit -Filter "Name -eq '$OU'" -ErrorAction SilentlyContinue)) {
-        New-ADOrganizationalUnit -Name $OU -Path $BaseDN -ProtectedFromAccidentalDeletion $false
+    $OUPath = "OU=$OU,$BaseDN"
+
+    try {
+        Get-ADOrganizationalUnit -Identity $OUPath -ErrorAction Stop | Out-Null
+        Write-Output "OU already exists: $OU"
+    }
+    catch {
+        Write-Output "Creating OU: $OU"
+
+        New-ADOrganizationalUnit `
+            -Name $OU `
+            -Path $BaseDN `
+            -ProtectedFromAccidentalDeletion $false
     }
 }
 
