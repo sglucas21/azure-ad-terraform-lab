@@ -81,6 +81,8 @@ The Domain Controller deployment automatically:
 * Creates Active Directory users
 * Applies Group Policy configurations
 
+![Domain Controller Deployment Automation](images/ps_dcdeployment.png)
+
 ---
 
 ## Client Workstation Automation
