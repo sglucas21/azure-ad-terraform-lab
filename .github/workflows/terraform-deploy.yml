@@ -91,7 +91,7 @@ jobs:
 
             Validation steps:
             1. RDP into the client VM.
-            2. Log in using LAB\alice.chen.
+            2. Log in using LAB\steven.lucas.
             3. Run gpupdate /force.
             4. Run gpresult /r.
             5. Confirm the IT Security Policy GPO is applied.
